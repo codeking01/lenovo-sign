@@ -273,8 +273,8 @@ def main():
     # config_file = r"../private-config/config.toml"
     # config = toml.load(config_file)
     # 读取CI指定的配置
-    config_path = os.getenv("CONFIG_FILE", "config.toml")
-    config = toml.load(config_path)
+    config_file = os.getenv("CONFIG_FILE", "config.toml")
+    config = toml.load(config_file)
     account = config.get("account")
     if not account:
         exit(1)

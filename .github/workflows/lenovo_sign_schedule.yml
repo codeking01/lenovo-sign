@@ -29,7 +29,27 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt || true  # 可选，或者你自己写的依赖安装命令
 
+      - name: Save config hash before run # 记录配置hash是否变化
+        id: save_hash
+        run: |
+          sha256sum private-config/config/config.toml > before_hash.txt
+
       - name: Run script
         run: |
           export CONFIG_FILE=private-config/config/config.toml # 导入配置路径
           python lenovo_sign.py  # 替换为你的脚本文件名
+
+      - name: Compare hash and commit if changed # 判断记录配置hash是否变化
+        run: |
+          sha256sum private-config/config/config.toml > after_hash.txt
+          if ! diff before_hash.txt after_hash.txt > /dev/null; then
+            echo "Config changed, committing..."
+            cd private-config
+            git config user.name "GitHub Actions Bot"
+            git config user.email "actions@github.com"
+            git add config/config.toml
+            git commit -m "Auto update: config.toml changed after script run"
+            git push
+          else
+            echo "No config change detected."
+          fi
