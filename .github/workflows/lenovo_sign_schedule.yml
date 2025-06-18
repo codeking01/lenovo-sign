@@ -1,4 +1,4 @@
-name: Run Lenovo Sign Task Script at 00:10 CST
+name: Lenovo Sign Task Script AUTO RUN at 00:10 CST
 
 on:
   schedule:
