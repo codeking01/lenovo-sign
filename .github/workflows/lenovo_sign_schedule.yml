@@ -2,7 +2,7 @@ name: Lenovo Sign Task Script AUTO RUN at 00:10 CST
 
 on:
   schedule:
-    - cron: '05 4 * * *'  # 每天北京时间 12:05 运行，一般延迟1h20min左右
+    - cron: '01 16 * * *'  # 每天北京时间 12:05 运行，一般延迟1h20min左右
   workflow_dispatch:  # 可手动触发
 
 jobs:
